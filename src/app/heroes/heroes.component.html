@@ -1,0 +1,10 @@
+<h2>{{hero.name | uppercase}} Details</h2>
+<div><span>id: {{hero.id}}</span></div>
+<div>
+  <label>name:
+    <!--[(ngModel)] is Angular's two-way data binding syntax.
+    Although ngModel is a valid Angular directive, it isn't available by default.
+    It belongs to the optional FormsModule and you must import it in the AppModule for using it.-->
+    <input [(ngModel)]="hero.name" placeholder="name"/>
+  </label>
+</div>
