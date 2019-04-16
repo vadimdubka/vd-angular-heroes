@@ -1,0 +1,13 @@
+<!--The HeroDetailComponent will present details of a selected hero.-->
+<div *ngIf="hero"> <!--The HeroDetailComponent should display hero details if the selected hero exists-->
+  <h2>{{hero.name | uppercase}} Details</h2>
+  <div><span>id: {{hero.id}}</span></div>
+  <div>
+    <label>name:
+      <!--[(ngModel)] - example of two-way data binding syntax.
+      Although ngModel is a valid Angular directive, it isn't available by default.
+      It belongs to the optional FormsModule and you must import it in the AppModule for using.-->
+      <input [(ngModel)]="hero.name" placeholder="name"/>
+    </label>
+  </div>
+</div>

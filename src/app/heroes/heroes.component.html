@@ -1,25 +1,14 @@
+<!--The HeroesComponent will only present the list of heroes.-->
 <h2>My Heroes</h2>
 <ul>
   <!--(click) - example of event binding syntax.-->
-  <!--[class.some-css-class]="some-condition" - example of property binding syntax.
+  <!--[class.some-css-class]="some-condition" - example of class binding syntax.
   When the current row hero is the same as the selectedHero, Angular adds the selected CSS class.-->
   <li *ngFor="let hero of heroes"
       [class.selected]="hero === selectedHero"
-      (click)="onSelect(hero)">
+      (click)="selectHero(hero)">
     <span class="badge">{{hero.id}}</span> {{hero.name}}
   </li>
 </ul>
-
-<!--component should display hero details if the selectedHero exists-->
-<div *ngIf="selectedHero">
-  <h2>{{selectedHero.name | uppercase}} Details</h2>
-  <div><span>id: {{selectedHero.id}}</span></div>
-  <div>
-    <label>name:
-      <!--[(ngModel)] - example of two-way data binding syntax.
-      Although ngModel is a valid Angular directive, it isn't available by default.
-      It belongs to the optional FormsModule and you must import it in the AppModule for using.-->
-      <input [(ngModel)]="selectedHero.name" placeholder="name"/>
-    </label>
-  </div>
-</div>
+<!--example of property binding syntax (one way data binding)-->
+<app-hero-detail [hero]="selectedHero"></app-hero-detail>
