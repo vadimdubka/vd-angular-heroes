@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {errorHandler} from "@angular/platform-browser/src/browser";
 import {Hero} from './hero';
 import {Observable, of} from 'rxjs';
 import {MessageService} from './message.service';
@@ -52,14 +53,19 @@ export class HeroService {
   }
 
   public updateHero(hero: Hero): Observable<any> {
-    return this.http.put(this.heroesUrl, hero, httpOptions)
-               .pipe(
-                 tap(_ => this.log(`updated hero id=${hero.id}`))
-                 , catchError(this.handleError<any>('updateHero'))
-               );
+    return this.http.put(this.heroesUrl, hero, httpOptions).pipe(
+      tap(_ => this.log(`updated hero id=${hero.id}`))
+      , catchError(this.handleError<any>('updateHero'))
+    );
 
   }
 
+  public addHero(hero: Hero): Observable<Hero> {
+    return this.http.post<Hero>(this.heroesUrl, hero, httpOptions).pipe(
+      tap((newHero: Hero) => this.log(`added hero w/ id=${newHero.id}`)),
+      catchError(this.handleError<Hero>('addHero'))
+    )
+  }
 
   /**
    * Handle Http operation that failed.

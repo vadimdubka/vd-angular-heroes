@@ -1,5 +1,14 @@
 <!--The HeroesComponent will only present the list of heroes.-->
 <h2>My Heroes</h2>
+
+<div>
+  <label>Hero name:
+    <input #heroName/>
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(heroName.value); heroName.value=''">add hero</button>
+</div>
+
 <ul>
   <!--(click) - example of event binding syntax.-->
   <!--[class.some-css-class]="some-condition" - example of class binding syntax.
