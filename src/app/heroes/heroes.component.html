@@ -9,7 +9,7 @@
   <button (click)="add(heroName.value); heroName.value=''">add hero</button>
 </div>
 
-<ul>
+<ul class="heroes">
   <!--(click) - example of event binding syntax.-->
   <!--[class.some-css-class]="some-condition" - example of class binding syntax.
   When the current row hero is the same as the selectedHero, Angular adds the selected CSS class.-->
@@ -17,6 +17,7 @@
       [class.selected]="hero === selectedHero"
       (click)="selectHero(hero)">
     <span class="badge">{{hero.id}}</span> {{hero.name}}
+    <button class="delete" title="=delete hero" (click)="delete(hero)">x</button>
   </li>
 </ul>
 <!--example of property binding syntax (one way data binding)-->
