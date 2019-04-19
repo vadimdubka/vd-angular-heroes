@@ -1,25 +1,75 @@
 import {Injectable} from '@angular/core';
 import {Hero} from './hero';
-import {HEROES} from './mock-heroes';
 import {Observable, of} from 'rxjs';
 import {MessageService} from './message.service';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {catchError, map, tap} from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class HeroService {
 
-  constructor(private messageService: MessageService) {
+
+  /*URL to web API of the form :base/:collectionName with the address of the heroes resource on the server.
+  :base is the resource to which requests are made
+  :collectionName is the heroes data object in the in-memory-data-service.ts.*/
+  private heroesUrl = 'api/heroes';
+
+
+  constructor(private messageService: MessageService,
+              private http: HttpClient) {
   }
 
   // asynchronous approach
   getHeroesArr(): Observable<Hero[]> {
-    this.messageService.add('HeroService: fecthed heroes');
-    return of(HEROES);
+    /* uses the RxJS of() function to return an array of mock heroes*/
+    // return of(HEROES);
+
+    /* GET heroes from the server.
+    * HttpClient.get returns the body of the response as an untyped JSON object by default. Applying the optional type specifier, <Hero[]> , gives you a typed result object.
+    * RxJS tap operator, which looks at the observable values, does something with those values, and passes them along. The tap call back doesn't touch the values themselves.*/
+    return this.http.get<Hero[]>(this.heroesUrl)
+               .pipe(
+                 tap(_ => this.log('fetched heroes')),
+                 catchError(this.handleError<Hero[]>('getHeroesArr', []))
+               );
   }
 
   getHero(id: number): Observable<Hero> {
-    this.messageService.add(`HeroService: fetched hero id=${id}`); // JavaScript template literal for embedding the id.
-    return of(HEROES.find(hero => hero.id === id));
+    /* uses the RxJS of() function to return mock hero*/
+    // return of(HEROES.find(hero => hero.id === id));
+
+    const url = `${this.heroesUrl}/${id}`;
+    return this.http.get<Hero>(url).pipe(
+      tap(_ => this.log(`fetched hero id=${id}`)),
+      catchError(this.handleError<Hero>(`getHero id=${id}`))
+    );
   }
+
+  /**
+   * Handle Http operation that failed.
+   * Instead of handling the error directly, it returns an error handler function to catchError that it has configured with both the name of the operation that failed and a safe return value.
+   * Let the app continue.
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // TODO: better job of transforming error for user consumption
+      this.log(`${operation} failed: ${error.message}`);
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
+
+  private log(message: string) {
+    this.messageService.add(`HeroService: ${message}`)
+  }
+
 }

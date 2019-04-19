@@ -12,11 +12,6 @@ import {HeroService} from '../hero.service';
 })
 export class HeroesComponent implements OnInit {
 
-  // property selectedHero of type Hero
-  vdHero: Hero = {
-    id: 1,
-    name: 'Vadim'
-  };
   selectedHero: Hero;
   heroes: Hero[];
 

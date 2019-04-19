@@ -32,7 +32,9 @@ export class HeroDetailComponent implements OnInit {
     // The route.snapshot is a static image of the route information shortly after the component was created.
     // Route parameters are always strings. The JavaScript (+) operator converts the string to a number.
     const id = +this.route.snapshot.paramMap.get('id');
-    this.heroService.getHero(id).subscribe(hero => this.hero = hero);
+    if (id) {
+      this.heroService.getHero(id).subscribe(hero => this.hero = hero);
+    }
   }
 
   /*Navigates backward one step in the browser's history stack using the Location service*/
