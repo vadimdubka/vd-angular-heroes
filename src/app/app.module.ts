@@ -11,6 +11,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {HttpClientInMemoryWebApiModule} from "angular-in-memory-web-api";
 import {InMemoryDataService} from "./in-memory-data.service";
+import { HeroSearchComponent } from './hero-search/hero-search.component';
 
 @NgModule({
   // list of declared components, directives, and pipes, that belongs to this module
@@ -19,7 +20,8 @@ import {InMemoryDataService} from "./in-memory-data.service";
     HeroesComponent,
     HeroDetailComponent,
     MessagesComponent,
-    DashboardComponent
+    DashboardComponent,
+    HeroSearchComponent
   ],
   // list of external modules that the app needs
   imports: [
