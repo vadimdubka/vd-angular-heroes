@@ -12,6 +12,9 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {HttpClientInMemoryWebApiModule} from "angular-in-memory-web-api";
 import {InMemoryDataService} from "./in-memory-data.service";
 import { HeroSearchComponent } from './hero-search/hero-search.component';
+import { StoreModule } from '@ngrx/store';
+import { counterReducer } from './state/counter/counter.reducer';
+import { MyCounterComponent } from './my-counter/my-counter.component';
 
 @NgModule({
   // list of declared components, directives, and pipes, that belongs to this module
@@ -21,7 +24,8 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     HeroDetailComponent,
     MessagesComponent,
     DashboardComponent,
-    HeroSearchComponent
+    HeroSearchComponent,
+    MyCounterComponent
   ],
   // list of external modules that the app needs
   imports: [
@@ -31,7 +35,8 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, {dataEncapsulation: false}
-    )
+    ),
+    StoreModule.forRoot({ count: counterReducer }) // Registered the global state container that is available throughout your application
   ],
   providers: [],
   bootstrap: [AppComponent]
