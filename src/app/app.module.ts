@@ -11,11 +11,12 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {HttpClientInMemoryWebApiModule} from "angular-in-memory-web-api";
 import {InMemoryDataService} from "./in-memory-data.service";
-import { HeroSearchComponent } from './hero-search/hero-search.component';
-import { StoreModule } from '@ngrx/store';
-import { counterReducer } from './state/counter/counter.reducer';
-import { MyCounterComponent } from './my-counter/my-counter.component';
+import {HeroSearchComponent} from './hero-search/hero-search.component';
+import {StoreModule} from '@ngrx/store';
+import {counterReducer} from './state/counter/counter.reducer';
+import {MyCounterComponent} from './my-counter/my-counter.component';
 
+/*root module, conventionally named AppModule, that enables bootstrapping*/
 @NgModule({
   // list of declared components, directives, and pipes, that belongs to this module
   declarations: [
@@ -38,6 +39,7 @@ import { MyCounterComponent } from './my-counter/my-counter.component';
     ),
     StoreModule.forRoot({ count: counterReducer }) // Registered the global state container that is available throughout your application
   ],
+  // list of provided services for DI
   providers: [],
   bootstrap: [AppComponent]
 })

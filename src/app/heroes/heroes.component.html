@@ -20,5 +20,6 @@
     <button class="delete" title="=delete hero" (click)="delete(hero)">x</button>
   </li>
 </ul>
-<!--example of property binding syntax (one way data binding)-->
+<!--example of property binding syntax (one way data binding).
+Passes the value of selectedHero from the parent HeroListComponent to the hero property of the child HeroDetailComponent-->
 <app-hero-detail [hero]="selectedHero"></app-hero-detail>

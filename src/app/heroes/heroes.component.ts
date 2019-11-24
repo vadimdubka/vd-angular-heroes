@@ -5,6 +5,11 @@ import {HeroService} from '../hero.service';
 /*Components shouldn't fetch or save data directly and they certainly shouldn't knowingly present fake data.
 * They should focus on presenting data and delegate data access to a service.
 * Removing data access from components means you can change your mind about the implementation anytime, without touching any components.*/
+
+/*HeroesComponent has a heroes property that holds an array of heroes.
+Its selectHero() method sets a selectedHero property when the user clicks to choose a hero from that list.
+The component acquires the heroes from a service, which is a TypeScript parameter property on the constructor.
+The service is provided to the component through the dependency injection system.*/
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
@@ -15,6 +20,7 @@ export class HeroesComponent implements OnInit {
   selectedHero: Hero;
   heroes: Hero[];
 
+  // heroService is TypeScript parameter property on the constructor, implicitly creates `heroService` property
   constructor(private heroService: HeroService) {
   }
 
